@@ -50,86 +50,78 @@ const Testimonials = () => {
     arrows: false,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1280, // Large Desktops
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 3,
         }
       },
       {
-        breakpoint: 768, // Tablet & Mobile
+        breakpoint: 1024, // Laptops & Tablets (Changed from 2 to 1 for safety)
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 1, // FORCE 1 COLUMN
+          dots: true
+        }
+      },
+      {
+        breakpoint: 640, // Mobile Phones
+        settings: {
+          slidesToShow: 1, // FORCE 1 COLUMN
           dots: true,
-          autoplay: false // Easier to read on mobile
+          autoplay: false // User controls the swipe
         }
       }
     ]
   };
 
   return (
-    <section id="testimonials" className="py-16 md:py-24 bg-dark text-white relative overflow-hidden w-full">
+    <section id="testimonials" className="py-20 bg-dark text-white relative overflow-hidden w-full">
       
-      {/* --- RESPONSIVE ARTISTIC BACKGROUND --- */}
-      
-      {/* 1. Large Watermark Quote (Smaller on Mobile) */}
-      <div className="absolute top-5 left-5 md:top-10 md:left-10 text-gold opacity-5 pointer-events-none select-none">
-        <Quote className="w-32 h-32 md:w-[300px] md:h-[300px]" strokeWidth={1} />
+      {/* Background Decor */}
+      <div className="absolute top-5 left-5 text-gold opacity-5 pointer-events-none">
+        <Quote className="w-24 h-24 md:w-64 md:h-64" strokeWidth={1} />
       </div>
 
-      {/* 2. Golden Gradient Orbs (Scaled Down) */}
-      <div className="absolute top-0 right-0 w-[200px] h-[200px] md:w-[500px] md:h-[500px] bg-gold/10 rounded-full blur-[60px] md:blur-[120px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[150px] h-[150px] md:w-[400px] md:h-[400px] bg-purple-900/20 rounded-full blur-[50px] md:blur-[100px] translate-y-1/2 -translate-x-1/2 pointer-events-none" />
-
-      <div className="container mx-auto px-4 md:px-6 relative z-10">
+      <div className="container mx-auto px-6 relative z-10">
         
         {/* Header */}
-        <div className="text-center mb-10 md:mb-16">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="flex justify-center mb-4"
-          >
-            <div className="p-3 border border-gold/30 rounded-full">
-               <Quote className="text-gold w-6 h-6" />
-            </div>
-          </motion.div>
-          
-          <h2 className="text-3xl md:text-6xl font-serif font-bold mb-4 bg-gradient-to-r from-white via-gold to-white bg-clip-text text-transparent">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4 bg-gradient-to-r from-white via-gold to-white bg-clip-text text-transparent">
             Voices of Elegance
           </h2>
+          <p className="text-gray-400 text-sm md:text-base">What our clients say about us</p>
         </div>
 
         {/* Carousel */}
-        <div className="relative px-2 md:px-0">
-          <Slider {...settings} className="testimonial-slider pb-8 md:pb-12">
+        <div className="max-w-6xl mx-auto">
+          <Slider {...settings} className="testimonial-slider pb-10">
             {testimonials.map((item) => (
-              <div key={item.id} className="px-2 md:px-4 py-4">
+              <div key={item.id} className="px-3 py-4"> {/* Padding between slides */}
                 <motion.div 
-                  className="bg-white/5 backdrop-blur-md border border-white/10 p-6 md:p-8 rounded-tr-3xl rounded-bl-3xl rounded-tl-lg rounded-br-lg h-full min-h-[300px] md:min-h-[350px] flex flex-col justify-between"
+                  className="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-2xl h-full flex flex-col justify-between"
+                  style={{ minHeight: '320px' }} // Force consistent height
                 >
                   
                   {/* Stars */}
-                  <div className="flex gap-1 mb-4 md:mb-6">
+                  <div className="flex gap-1 mb-6">
                     {[...Array(item.rating)].map((_, i) => (
-                      <Star key={i} size={14} fill="#D4AF37" className="text-gold drop-shadow-lg" />
+                      <Star key={i} size={16} fill="#D4AF37" className="text-gold" />
                     ))}
                   </div>
 
                   {/* Review Text */}
-                  <p className="text-gray-300 font-light italic mb-6 leading-relaxed text-sm md:text-lg">
+                  <p className="text-gray-300 font-light italic mb-8 leading-relaxed text-lg">
                     "{item.text}"
                   </p>
 
                   {/* User Profile */}
-                  <div className="flex items-center gap-4 border-t border-white/10 pt-6">
+                  <div className="flex items-center gap-4 mt-auto border-t border-white/10 pt-4">
                     <img 
                       src={item.img} 
                       alt={item.name} 
-                      className="w-12 h-12 md:w-14 md:h-14 rounded-full object-cover border-2 border-white/20" 
+                      className="w-12 h-12 rounded-full object-cover border border-white/20" 
                     />
                     <div>
-                      <h4 className="font-serif text-lg md:text-xl text-white flex items-center gap-2">
+                      <h4 className="font-serif text-lg text-white flex items-center gap-2">
                         {item.name}
                         <CheckCircle size={14} className="text-gold" />
                       </h4>
@@ -144,20 +136,16 @@ const Testimonials = () => {
         </div>
       </div>
 
-      {/* Mobile Dot Adjustments */}
+      {/* Styles for Dots */}
       <style jsx global>{`
-        .testimonial-slider .slick-dots {
-            bottom: -10px;
-        }
         .testimonial-slider .slick-dots li button:before {
           color: white;
           opacity: 0.2;
-          font-size: 8px; /* Smaller dots on mobile */
+          font-size: 10px;
         }
         .testimonial-slider .slick-dots li.slick-active button:before {
           color: #D4AF37 !important;
           opacity: 1;
-          font-size: 12px;
         }
       `}</style>
     </section>
