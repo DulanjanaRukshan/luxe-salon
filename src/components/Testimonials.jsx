@@ -9,7 +9,7 @@ const testimonials = [
     name: "Emily Watson",
     role: "Regular Client",
     img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150",
-    text: "I have never felt more confident. The balayage expert here is a true artist! The atmosphere is so relaxing, it feels like a mini-vacation every time I visit.",
+    text: "I have never felt more confident. The balayage expert here is a true artist! The atmosphere is so relaxing.",
     rating: 5
   },
   {
@@ -17,7 +17,7 @@ const testimonials = [
     name: "Sarah Jenkins",
     role: "Bridal Package",
     img: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150",
-    text: "They made my wedding day perfect. The team arrived on time, was incredibly professional, and my hair and makeup stayed flawless all night long.",
+    text: "They made my wedding day perfect. The team arrived on time and was incredibly professional.",
     rating: 5
   },
   {
@@ -25,7 +25,7 @@ const testimonials = [
     name: "Michael Chen",
     role: "VIP Member",
     img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150",
-    text: "Best grooming experience in the city. The private suite is a game changer for privacy. Highly recommend the deep tissue massage as well.",
+    text: "Best grooming experience in the city. The private suite is a game changer for privacy.",
     rating: 5
   },
   {
@@ -33,7 +33,7 @@ const testimonials = [
     name: "Jessica Lee",
     role: "Model",
     img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150",
-    text: "I trust no one else with my hair. Whether it's a trim or a complete color change, the results are always consistent and absolutely stunning.",
+    text: "I trust no one else with my hair. Whether it's a trim or a complete color change, the results are stunning.",
     rating: 5
   }
 ];
@@ -56,35 +56,34 @@ const Testimonials = () => {
         }
       },
       {
-        breakpoint: 640,
+        breakpoint: 768, // Tablet & Mobile
         settings: {
           slidesToShow: 1,
+          dots: true,
+          autoplay: false // Easier to read on mobile
         }
       }
     ]
   };
 
   return (
-    <section id="testimonials" className="py-24 bg-dark text-white relative overflow-hidden">
+    <section id="testimonials" className="py-16 md:py-24 bg-dark text-white relative overflow-hidden w-full">
       
-      {/* --- ARTISTIC BACKGROUND ELEMENTS --- */}
+      {/* --- RESPONSIVE ARTISTIC BACKGROUND --- */}
       
-      {/* 1. Large Watermark Quote */}
-      <div className="absolute top-10 left-10 text-gold opacity-5 pointer-events-none select-none">
-        <Quote size={300} strokeWidth={1} />
+      {/* 1. Large Watermark Quote (Smaller on Mobile) */}
+      <div className="absolute top-5 left-5 md:top-10 md:left-10 text-gold opacity-5 pointer-events-none select-none">
+        <Quote className="w-32 h-32 md:w-[300px] md:h-[300px]" strokeWidth={1} />
       </div>
 
-      {/* 2. Golden Gradient Orbs */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gold/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-purple-900/20 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+      {/* 2. Golden Gradient Orbs (Scaled Down) */}
+      <div className="absolute top-0 right-0 w-[200px] h-[200px] md:w-[500px] md:h-[500px] bg-gold/10 rounded-full blur-[60px] md:blur-[120px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[150px] h-[150px] md:w-[400px] md:h-[400px] bg-purple-900/20 rounded-full blur-[50px] md:blur-[100px] translate-y-1/2 -translate-x-1/2 pointer-events-none" />
 
-      {/* 3. Geometric Pattern Overlay (SVG) */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#D4AF37 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
-
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
         
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 md:mb-16">
           <motion.div 
             initial={{ opacity: 0, scale: 0 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -96,61 +95,41 @@ const Testimonials = () => {
             </div>
           </motion.div>
           
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-serif font-bold mb-4 bg-gradient-to-r from-white via-gold to-white bg-clip-text text-transparent"
-          >
+          <h2 className="text-3xl md:text-6xl font-serif font-bold mb-4 bg-gradient-to-r from-white via-gold to-white bg-clip-text text-transparent">
             Voices of Elegance
-          </motion.h2>
-          
-          <motion.p
-             initial={{ opacity: 0 }}
-             whileInView={{ opacity: 1 }}
-             transition={{ delay: 0.2 }}
-             className="text-gray-400 max-w-xl mx-auto"
-          >
-             Hear from those who have experienced our artistry firsthand.
-          </motion.p>
+          </h2>
         </div>
 
         {/* Carousel */}
-        <div className="relative">
-          <Slider {...settings} className="testimonial-slider pb-12">
+        <div className="relative px-2 md:px-0">
+          <Slider {...settings} className="testimonial-slider pb-8 md:pb-12">
             {testimonials.map((item) => (
-              <div key={item.id} className="px-4 py-4">
+              <div key={item.id} className="px-2 md:px-4 py-4">
                 <motion.div 
-                  whileHover={{ y: -10 }}
-                  className="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-tr-3xl rounded-bl-3xl rounded-tl-lg rounded-br-lg h-full hover:border-gold/50 transition-all duration-500 group relative overflow-hidden"
+                  className="bg-white/5 backdrop-blur-md border border-white/10 p-6 md:p-8 rounded-tr-3xl rounded-bl-3xl rounded-tl-lg rounded-br-lg h-full min-h-[300px] md:min-h-[350px] flex flex-col justify-between"
                 >
                   
-                  {/* Decorative Corner Flash */}
-                  <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-gold/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
                   {/* Stars */}
-                  <div className="flex gap-1 mb-6">
+                  <div className="flex gap-1 mb-4 md:mb-6">
                     {[...Array(item.rating)].map((_, i) => (
-                      <Star key={i} size={16} fill="#D4AF37" className="text-gold drop-shadow-lg" />
+                      <Star key={i} size={14} fill="#D4AF37" className="text-gold drop-shadow-lg" />
                     ))}
                   </div>
 
                   {/* Review Text */}
-                  <p className="text-gray-300 font-light italic mb-8 leading-loose text-lg relative z-10">
+                  <p className="text-gray-300 font-light italic mb-6 leading-relaxed text-sm md:text-lg">
                     "{item.text}"
                   </p>
 
                   {/* User Profile */}
-                  <div className="flex items-center gap-4 border-t border-white/10 pt-6 mt-auto">
-                    <div className="relative">
-                      <div className="absolute inset-0 bg-gold rounded-full blur opacity-40 group-hover:opacity-70 transition-opacity"></div>
-                      <img 
-                        src={item.img} 
-                        alt={item.name} 
-                        className="w-14 h-14 rounded-full object-cover border-2 border-white/20 relative z-10" 
-                      />
-                    </div>
+                  <div className="flex items-center gap-4 border-t border-white/10 pt-6">
+                    <img 
+                      src={item.img} 
+                      alt={item.name} 
+                      className="w-12 h-12 md:w-14 md:h-14 rounded-full object-cover border-2 border-white/20" 
+                    />
                     <div>
-                      <h4 className="font-serif text-xl text-white flex items-center gap-2">
+                      <h4 className="font-serif text-lg md:text-xl text-white flex items-center gap-2">
                         {item.name}
                         <CheckCircle size={14} className="text-gold" />
                       </h4>
@@ -165,20 +144,20 @@ const Testimonials = () => {
         </div>
       </div>
 
-      {/* Custom Styles for Dots */}
+      {/* Mobile Dot Adjustments */}
       <style jsx global>{`
         .testimonial-slider .slick-dots {
-            bottom: -20px;
+            bottom: -10px;
         }
         .testimonial-slider .slick-dots li button:before {
           color: white;
           opacity: 0.2;
-          font-size: 10px;
+          font-size: 8px; /* Smaller dots on mobile */
         }
         .testimonial-slider .slick-dots li.slick-active button:before {
           color: #D4AF37 !important;
           opacity: 1;
-          font-size: 14px;
+          font-size: 12px;
         }
       `}</style>
     </section>
